@@ -1,11 +1,30 @@
+import { Suspense } from "react";
 
-const page =  () => {
-  
-  return( 
-    <div>
-    HEllo World
-    </div>
-  );
+import { getQueryClient, trpc} from "@/trpc/server";
 
-  }
-export default page;
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+
+import { Client } from "./client";
+
+
+const Page = async () => {
+
+  const queryClient = getQueryClient();
+
+  void queryClient.prefetchQuery(trpc.createAI.queryOptions({ text: "Antonio PREFETCH" }));
+return(
+
+<HydrationBoundary state={dehydrate(queryClient)}>
+
+<Suspense fallback  = {<p>Loading...</p>}>
+
+<Client /> Cannot find name 'Client'.
+
+</Suspense>
+
+</HydrationBoundary>
+
+);
+
+}
+export default Page;

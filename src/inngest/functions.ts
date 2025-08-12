@@ -1,9 +1,9 @@
 import {z} from "zod";
 import { Sandbox } from "@e2b/code-interpreter";
 
-import { openai , createAgent, createTool , createNetwork, type Tool} from "@inngest/agent-kit";
+//import { openai , createAgent, createTool , createNetwork, type Tool} from "@inngest/agent-kit";
 
-//import { gemini , createAgent, createTool , createNetwork} from "@inngest/agent-kit";
+import { gemini , createAgent, createTool , createNetwork, type Tool} from "@inngest/agent-kit";
 
 
 import { prisma } from "@/lib/db";
@@ -33,9 +33,9 @@ export const codeAgentFunction = inngest.createFunction(
       name: "code-agent",
       description: "An expert coding agent",
       system: PROMPT,
-      model: openai({ 
-        model: "gpt-4o-mini",
-        defaultParameters: { temperature: 0.5 },
+      model: gemini({ 
+        model: "gemini-2.0-flash",
+        //defaultParameters: { temperature: 0.5 },
        }),
       tools: [
         createTool({
@@ -100,7 +100,7 @@ export const codeAgentFunction = inngest.createFunction(
               }
            });
 
-           if (typeof newFiles === "object"){
+           if (typeof newFiles === "object" && newFiles !== null){
             network.state.data.files  = newFiles;
            }
           }

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/client";
@@ -14,9 +15,26 @@ interface Props {
 
 export const MessagesContainer = ({ projectId }: Props) => {
     const trpc = useTRPC();
+    const bottomRef = useRef<HTMLDivElement>(null);
     const { data: messages } = useSuspenseQuery(trpc.messages.getMany.queryOptions({
         projectId: projectId,
     }));
+
+    useEffect(()=> {
+        const lastAssistantMessage = messages.findLast(
+            (message) => message.role === "ASSISTANT",
+        );
+
+        if(lastAssistantMessage){
+            //TODO SET ACTIVE FRAGMENT
+        }
+    }, [messages]);
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView();
+    }, [messages.length]);
+
+
 
     return(
         <div className="flex flex-col flex-1 min-h-0">
@@ -34,9 +52,11 @@ export const MessagesContainer = ({ projectId }: Props) => {
                         type = {message.type}
                     />
                 ))}
+                <div ref = { bottomRef }/>
             </div>
             </div>
             <div className="relative p-3 pt-1" >
+               <div className="absolute -top-6 left-0 right-0 h-6 bg-gradiant-to-b from-transparent to-background/70 pointer-events-none"/> 
                 <MessageForm projectId ={projectId}/>
             </div>
         </div>

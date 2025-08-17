@@ -24,6 +24,7 @@ export const MessagesContainer = ({
     }: Props) => {
     const trpc = useTRPC();
     const bottomRef = useRef<HTMLDivElement>(null);
+    const lastAssistantMessageIdRef =useRef<string | null>(null);
 
     const { data: messages } = useSuspenseQuery(trpc.messages.getMany.queryOptions({
         projectId: projectId,
@@ -31,16 +32,22 @@ export const MessagesContainer = ({
         // TODO  : Temporary live message update
         refetchInterval: 5000,
     }));
-    // This is causing Problems
-    // useEffect(()=> {
-    //     const lastAssistantMessageWithFragment = messages.findLast(
-    //         (message) => message.role === "ASSISTANT" && !! message.fragment,
-    //     );
+    useEffect(()=> {
+        const lastAssistantMessage = messages.findLast(
+            (message) => message.role === "ASSISTANT"
+        );
 
-    //     if(lastAssistantMessageWithFragment ){
-    //        setActiveFragment(lastAssistantMessageWithFragment.fragment);
-    //     }
-    // }, [messages, setActiveFragment]);
+        if(
+        lastAssistantMessage?.fragment &&
+        lastAssistantMessage.id !== lastAssistantMessageIdRef.current
+
+        ) {
+            setActiveFragment(lastAssistantMessage.fragment);
+            lastAssistantMessageIdRef.current = lastAssistantMessage.id;
+
+        }
+        
+    }, [messages, setActiveFragment]);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView();
@@ -73,7 +80,7 @@ export const MessagesContainer = ({
             </div>
             </div>
             <div className="relative p-3 pt-1" >
-               <div className="absolute -top-6 left-0 right-0 h-6 bg-gradiant-to-b from-transparent to-background/70 pointer-events-none"/> 
+               <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-b from-transparent to-background/70 pointer-events-none"/> 
                 <MessageForm projectId ={projectId}/>
             </div>
         </div>

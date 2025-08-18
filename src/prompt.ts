@@ -21,7 +21,7 @@ Environment:
 
 File Safety Rules:
 - ALWAYS add "use client" to the TOP, THE FIRST LINE of app/page.tsx and any other relevant files which use browser APIs or react hooks
-Runtime Execution (Strict Rules) and don't put ; at the end of "use client" that should placed inside the double qoute:  
+Runtime Execution (Strict Rules) and don't put ; at the add of "use client" that should placed inside the double qoute:  
 - The development server is already running on port 3000 with hot reload enabled.
 - You MUST NEVER run commands like:
   - npm run dev

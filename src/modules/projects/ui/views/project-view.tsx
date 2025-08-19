@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
 
 import {Fragment} from "@/generated/prisma";
+import { UserControl } from "@/components/user-control";
 import { FileExplorer } from "@/components/file-explorer";
 import { Button } from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
@@ -75,6 +76,7 @@ export const ProjectView = ({ projectId }: Props) => {
                         <CrownIcon /> Upgrade
                     </Link>
                 </Button>
+                <UserControl />
             </div>
             </div>
             <TabsContent value= "preview">

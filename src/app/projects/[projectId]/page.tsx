@@ -1,4 +1,7 @@
 import { Suspense } from "react";
+
+import {ErrorBoundary} from "react-error-boundary";
+
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { getQueryClient, trpc } from "@/trpc/server";
@@ -30,9 +33,11 @@ const Page = async ({ params }: Props) => {
 
     return(
         <HydrationBoundary state = {dehydrate(queryClient)}>
+            <ErrorBoundary fallback = {<p>Error!</p>}>
             <Suspense fallback={<p>Loading Project...</p>}>
            <ProjectView projectId = {projectId}/>
            </Suspense>
+           </ErrorBoundary>
         </HydrationBoundary>
     );
 }

@@ -39,8 +39,9 @@ export const codeAgentFunction = inngest.createFunction(
         projectId: event.data.projectId,
       },
       orderBy: {
-        createdAt: "desc", // todo change the to asc
+        createdAt: "desc", 
       },
+      take : 5,
     });
     for(const message of messages) {
       formattedMessages.push({
@@ -49,7 +50,7 @@ export const codeAgentFunction = inngest.createFunction(
         content:message.content,
       })
     }
-    return formattedMessages;
+    return formattedMessages.reverse();
   });
 
   const state  = createState<AgentState>({

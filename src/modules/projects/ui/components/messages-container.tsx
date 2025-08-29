@@ -29,8 +29,7 @@ export const MessagesContainer = ({
     const { data: messages } = useSuspenseQuery(trpc.messages.getMany.queryOptions({
         projectId: projectId,
     }, {
-        // TODO  : Temporary live message update
-        refetchInterval: 5000,
+        refetchInterval: 2000,
     }));
     useEffect(()=> {
         const lastAssistantMessage = messages.findLast(
@@ -72,6 +71,7 @@ export const MessagesContainer = ({
                         createdAt = {message.createdAt}
                         isActiveFragment ={activeFragment?.id === message.fragment?.id}
                         onFragmentClick={() => setActiveFragment(message.fragment)}
+            
                         type = {message.type}
                     />
                 ))}

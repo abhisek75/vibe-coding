@@ -14,6 +14,7 @@ import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/prompt";
 import { getSandbox , lastAssistantTextMessageContent, parseAgentOutput} from "./utils";
 
 import { Command } from "lucide-react";
+import { SANDBOX_TIMEOUT } from "./types";
 
 interface AgentState{
   summary: string;
@@ -26,6 +27,7 @@ export const codeAgentFunction = inngest.createFunction(
   async ({ event, step }) => {
     const sandboxId = await step.run("get-sandbox-id" , async () => {
     const sandbox = await Sandbox.create("codexa-nextjs-test-22");
+    await sandbox.setTimeout(SANDBOX_TIMEOUT);//1/2 hour for free
       return sandbox.sandboxId;
   });
 

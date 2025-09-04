@@ -17,20 +17,20 @@ interface HintProps {
 
 export const Hint = ({
     children,
-    text, 
+    text,
     side = "top",
-    align ="center"
-    }: HintProps) => {
-    return(
+    align = "center"
+}: HintProps) => {
+    return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
                     {children}
                 </TooltipTrigger>
-                <TooltipContent side= {side} align={align}>
-                <p>{text}</p>
+                <TooltipContent side={side} align={align}>
+                    <p>{text}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
-    );    
+    );
 };

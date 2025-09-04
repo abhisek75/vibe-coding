@@ -17,9 +17,9 @@ import {
     SidebarProvider,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import { 
-    ChevronRightIcon, 
-    FileIcon, 
+import {
+    ChevronRightIcon,
+    FileIcon,
     FolderIcon,
     FileTextIcon,
     CodeIcon,
@@ -39,7 +39,7 @@ interface TreeViewProps {
 // Language-specific file icons mapping
 const getFileIcon = (fileName: string) => {
     const extension = fileName.split('.').pop()?.toLowerCase();
-    
+
     const iconMap: Record<string, React.ComponentType> = {
         // JavaScript/TypeScript
         'js': CodeIcon,
@@ -48,13 +48,13 @@ const getFileIcon = (fileName: string) => {
         'tsx': CodeIcon,
         'mjs': CodeIcon,
         'cjs': CodeIcon,
-        
+
         // Python
         'py': CodeIcon,
         'pyx': CodeIcon,
         'pyi': CodeIcon,
         'pyc': CodeIcon,
-        
+
         // Java/Kotlin/Scala
         'java': CodeIcon,
         'class': CodeIcon,
@@ -62,7 +62,7 @@ const getFileIcon = (fileName: string) => {
         'kt': CodeIcon,
         'kts': CodeIcon,
         'scala': CodeIcon,
-        
+
         // C/C++
         'c': CodeIcon,
         'cpp': CodeIcon,
@@ -71,14 +71,14 @@ const getFileIcon = (fileName: string) => {
         'h': CodeIcon,
         'hpp': CodeIcon,
         'hxx': CodeIcon,
-        
+
         // C#/.NET
         'cs': CodeIcon,
         'vb': CodeIcon,
         'fs': CodeIcon,
         'dll': PackageIcon,
         'exe': TerminalIcon,
-        
+
         // Web Technologies
         'html': CodeIcon,
         'htm': CodeIcon,
@@ -88,33 +88,33 @@ const getFileIcon = (fileName: string) => {
         'less': CodeIcon,
         'vue': CodeIcon,
         'svelte': CodeIcon,
-        
+
         // PHP
         'php': CodeIcon,
         'phtml': CodeIcon,
         'php3': CodeIcon,
         'php4': CodeIcon,
         'php5': CodeIcon,
-        
+
         // Ruby
         'rb': CodeIcon,
         'rake': CodeIcon,
         'gemspec': CodeIcon,
-        
+
         // Go
         'go': CodeIcon,
         'mod': SettingsIcon,
         'sum': SettingsIcon,
-        
+
         // Rust
         'rs': CodeIcon,
         'toml': SettingsIcon,
-        
+
         // Swift/Objective-C
         'swift': CodeIcon,
         'm': CodeIcon,
         'mm': CodeIcon,
-        
+
         // Shell/Scripts
         'sh': TerminalIcon,
         'bash': TerminalIcon,
@@ -123,13 +123,13 @@ const getFileIcon = (fileName: string) => {
         'ps1': TerminalIcon,
         'bat': TerminalIcon,
         'cmd': TerminalIcon,
-        
+
         // Database
         'sql': DatabaseIcon,
         'db': DatabaseIcon,
         'sqlite': DatabaseIcon,
         'mdb': DatabaseIcon,
-        
+
         // Configuration
         'json': SettingsIcon,
         'xml': SettingsIcon,
@@ -140,7 +140,7 @@ const getFileIcon = (fileName: string) => {
         'config': SettingsIcon,
         'env': SettingsIcon,
         'properties': SettingsIcon,
-        
+
         // Documentation
         'md': FileTextIcon,
         'markdown': FileTextIcon,
@@ -148,7 +148,7 @@ const getFileIcon = (fileName: string) => {
         'rst': FileTextIcon,
         'adoc': FileTextIcon,
         'asciidoc': FileTextIcon,
-        
+
         // Images
         'png': ImageIcon,
         'jpg': ImageIcon,
@@ -158,7 +158,7 @@ const getFileIcon = (fileName: string) => {
         'webp': ImageIcon,
         'ico': ImageIcon,
         'bmp': ImageIcon,
-        
+
         // Package files
         'zip': PackageIcon,
         'tar': PackageIcon,
@@ -167,7 +167,7 @@ const getFileIcon = (fileName: string) => {
         '7z': PackageIcon,
         'deb': PackageIcon,
         'rpm': PackageIcon,
-        
+
         // Language-specific package files
         'package': SettingsIcon, // package.json
         'lock': SettingsIcon, // package-lock.json, yarn.lock
@@ -179,7 +179,7 @@ const getFileIcon = (fileName: string) => {
         'pom': SettingsIcon, // pom.xml
         'gradle': SettingsIcon,
         'sbt': SettingsIcon,
-        
+
         // Other common files
         'dockerfile': TerminalIcon,
         'makefile': TerminalIcon,
@@ -194,7 +194,7 @@ const getFileIcon = (fileName: string) => {
         'vite': SettingsIcon,
         'rollup': SettingsIcon,
     };
-    
+
     // Special handling for specific filenames
     const specialFiles: Record<string, React.ComponentType> = {
         'package.json': SettingsIcon,
@@ -236,18 +236,18 @@ const getFileIcon = (fileName: string) => {
         'CHANGELOG.md': FileTextIcon,
         'CONTRIBUTING.md': FileTextIcon,
     };
-    
+
     // Check for special filenames first
     const lowerFileName = fileName.toLowerCase();
     if (specialFiles[fileName] || specialFiles[lowerFileName]) {
         return specialFiles[fileName] || specialFiles[lowerFileName];
     }
-    
+
     // Then check by extension
     if (extension && iconMap[extension]) {
         return iconMap[extension];
     }
-    
+
     // Default to generic file icon
     return FileIcon;
 };

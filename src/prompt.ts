@@ -1,4 +1,3 @@
-// prompt.ts
 
 export const PROMPT = `
 You are a senior software engineer working in a sandboxed environment for the project "Codexa".

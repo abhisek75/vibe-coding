@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { Sandbox } from "@e2b/code-interpreter";
 
-//import { openai , createAgent, createTool , createNetwork, type Tool} from "@inngest/agent-kit";
+//import { openai ,  } from "@inngest/agent-kit";
 
-import { gemini, createAgent, createTool, createNetwork, type Tool, type Message, createState } from "@inngest/agent-kit";
+import { gemini, createAgent, createTool, createNetwork, type Tool, type Message, createState  } from "@inngest/agent-kit";
 
 
 import { prisma } from "@/lib/db";
@@ -197,16 +197,16 @@ export const codeAgentFunction = inngest.createFunction(
       description: "A fragment title generator",
       system: FRAGMENT_TITLE_PROMPT,
       model: gemini({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
       }),
     });
 
     const responseGenerator = createAgent({
       name: "response-generator",
-      description: "A responsew generator",
+      description: "A response generator",
       system: RESPONSE_PROMPT,
       model: gemini({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
       }),
     });
 
